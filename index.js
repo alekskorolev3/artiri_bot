@@ -4,7 +4,14 @@ const
     express = require('express'),
     request = require('express'),
     bodyParser = require('body-parser'),
-    app = express().use(bodyParser.json());
+    { urlencoded, json } = require('body-parser'),
+    app = express();
+
+app.use(urlencoded({ extended: true }));
+
+// Parse application/json
+app.use(json());
+
 
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening on port 1337'));
 
