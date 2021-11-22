@@ -139,6 +139,7 @@ function callSendAPI(senderPsid, response) {
     // The page access token we have generated in your app settings
     const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
+    console.log(PAGE_ACCESS_TOKEN)
     console.log("callback API")
 
     // Construct the message body
