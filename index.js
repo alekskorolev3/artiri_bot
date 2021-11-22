@@ -3,10 +3,10 @@
 const
     express = require('express'),
     request = require('request'),
-    { urlencoded, json } = require('body-parser'),
+    {urlencoded, json} = require('body-parser'),
     app = express();
 
-app.use(urlencoded({ extended: true }));
+app.use(urlencoded({extended: true}));
 
 // Parse application/json
 app.use(json());
@@ -21,9 +21,8 @@ app.post('/webhook', (req, res) => {
     if (body.object === 'page') {
 
         // Iterates over each entry - there may be multiple if batched
-        body.entry.forEach(function(entry) {
+        body.entry.forEach(function (entry) {
             let webhookEvent = entry.messaging[0];
-            console.log(webhookEvent);
 
             // Get the sender PSID
             let senderPsid = webhookEvent.sender.id;
@@ -124,9 +123,9 @@ function handlePostback(senderPsid, receivedPostback) {
 
     // Set the response based on the postback payload
     if (payload === 'yes') {
-        response = { 'text': 'Thanks!' };
+        response = {'text': 'Thanks!'};
     } else if (payload === 'no') {
-        response = { 'text': 'Oops, try sending another image.' };
+        response = {'text': 'Oops, try sending another image.'};
     }
     // Send the message to acknowledge the postback
     callSendAPI(senderPsid, response);
@@ -135,10 +134,8 @@ function handlePostback(senderPsid, receivedPostback) {
 // Sends response messages via the Send API
 function callSendAPI(senderPsid, response) {
 
-    // The page access token we have generated in your app settings
     const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
-    console.log(PAGE_ACCESS_TOKEN)
 
     // Construct the message body
     let requestBody = {
@@ -151,7 +148,7 @@ function callSendAPI(senderPsid, response) {
     // Send the HTTP request to the Messenger Platform
     request({
         'uri': 'https://graph.facebook.com/v2.6/me/messages',
-        'qs': { 'access_token': PAGE_ACCESS_TOKEN },
+        'qs': {'access_token': PAGE_ACCESS_TOKEN},
         'method': 'POST',
         'json': requestBody
     }, (err, _res, _body) => {
