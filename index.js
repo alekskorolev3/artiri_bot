@@ -2,7 +2,7 @@
 
 const
     express = require('express'),
-    request = require('express'),
+    request = require('request'),
     bodyParser = require('body-parser'),
     { urlencoded, json } = require('body-parser'),
     app = express();
@@ -140,7 +140,6 @@ function callSendAPI(senderPsid, response) {
     const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
     console.log(PAGE_ACCESS_TOKEN)
-    console.log("callback API")
 
     // Construct the message body
     let requestBody = {
