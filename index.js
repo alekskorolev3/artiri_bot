@@ -3,16 +3,14 @@
 const
     express = require('express'),
     request = require('request'),
+    config = require("./services/config"),
     {urlencoded, json} = require('body-parser'),
     app = express();
+const {verifyToken, pageAccessToken} = require("./services/config");
 
 app.use(urlencoded({extended: true}));
 
-// Parse application/json
 app.use(json());
-
-
-app.listen(process.env.PORT || 1337, () => console.log('webhook is listening on port 1337'));
 
 app.post('/webhook', (req, res) => {
 
@@ -20,7 +18,6 @@ app.post('/webhook', (req, res) => {
 
     if (body.object === 'instagram') {
 
-        console.log("EVENT_RECEIVED_CONSOLE")
         // Iterates over each entry - there may be multiple if batched
         body.entry.forEach(function (entry) {
             let webhookEvent = entry.messaging[0];
@@ -45,26 +42,17 @@ app.post('/webhook', (req, res) => {
 
 app.get('/webhook', (req, res) => {
 
-    // Your verify token. Should be a random string.
-    let VERIFY_TOKEN = process.env.VERIFY_TOKEN;
-
-    // Parse the query params
     let mode = req.query['hub.mode'];
     let token = req.query['hub.verify_token'];
     let challenge = req.query['hub.challenge'];
 
-    // Checks if a token and mode is in the query string of the request
     if (mode && token) {
+        if (mode === 'subscribe' && token === verifyToken) {
 
-        // Checks the mode and token sent is correct
-        if (mode === 'subscribe' && token === VERIFY_TOKEN) {
-
-            // Responds with the challenge token from the request
             console.log('WEBHOOK_VERIFIED');
             res.status(200).send(challenge);
 
         } else {
-            // Responds with '403 Forbidden' if verify tokens do not match
             res.sendStatus(403);
         }
     }
@@ -135,10 +123,6 @@ function handlePostback(senderPsid, receivedPostback) {
 // Sends response messages via the Send API
 function callSendAPI(senderPsid, response) {
 
-    const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
-
-
-    // Construct the message body
     let requestBody = {
         'recipient': {
             'id': senderPsid
@@ -148,8 +132,8 @@ function callSendAPI(senderPsid, response) {
 
     // Send the HTTP request to the Messenger Platform
     request({
-        'uri': 'https://graph.facebook.com/v2.6/me/messages',
-        'qs': {'access_token': PAGE_ACCESS_TOKEN},
+        'uri': 'https://graph.facebook.com/v12.0/me/messages',
+        'qs': {'access_token': pageAccessToken},
         'method': 'POST',
         'json': requestBody
     }, (err, _res, _body) => {
@@ -160,3 +144,33 @@ function callSendAPI(senderPsid, response) {
         }
     });
 }
+
+async function main() {
+    // Check if all environment variables are set
+    config.checkEnvVariables();
+
+    const iceBreakers = [
+        {
+            question: "Test case 1",
+            payload: "CARE_SALES"
+        },
+        {
+            question: "Test case 3",
+            payload: "SEARCH_ORDER"
+        },
+        {
+            question: "Test case 3",
+            payload: "CARE_HELP"
+        }
+    ];
+
+    // // Set our Icebreakers upon launch
+    // await GraphApi.setIcebreakers(iceBreakers);
+    //
+    // // Set our page subscriptions
+    // await GraphApi.setPageSubscriptions();
+
+    app.listen(process.env.PORT || 1337, () => console.log('webhook is listening on port 1337'));
+}
+
+main();
