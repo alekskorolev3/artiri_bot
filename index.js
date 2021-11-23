@@ -4,7 +4,7 @@ import express from 'express'
 import config from './services/config'
 import GraphApi from './services/graph-api'
 import {urlencoded, json} from 'body-parser'
-import {verifyToken} from "./services/config";
+import {verifyToken} from './services/config'
 
 const app = express();
 
