@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "messenger_webhook",
   "version": "1.0.0",
   "description": "",
