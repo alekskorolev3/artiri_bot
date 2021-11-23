@@ -1,13 +1,12 @@
 'use strict';
 
-const
-    express = require('express'),
-    request = require('request'),
-    config = require("./services/config"),
-    {urlencoded, json} = require('body-parser'),
-    GraphApi = require("./services/graph-api"),
-    app = express();
-const {verifyToken} = require("./services/config");
+import express from 'express'
+import config from './services/config'
+import GraphApi from './services/graph-api'
+import {urlencoded, json} from 'body-parser'
+import {verifyToken} from "./services/config";
+
+const app = express();
 
 app.use(urlencoded({extended: true}));
 
