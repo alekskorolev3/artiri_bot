@@ -1,12 +1,12 @@
 'use strict';
 
-import express from 'express'
-import config from './services/config'
-import GraphApi from './services/graph-api'
-import {urlencoded, json} from 'body-parser'
-import {verifyToken} from './services/config'
-
-const app = express();
+const
+    express = require('express'),
+    request = require('request'),
+    config = require("./services/config"),
+    {urlencoded, json} = require('body-parser'),
+    app = express();
+const {verifyToken, pageAccessToken} = require("./services/config");
 
 app.use(urlencoded({extended: true}));
 
@@ -100,7 +100,7 @@ function handleMessage(senderPsid, receivedMessage) {
     }
 
     // Send the response message
-    GraphApi.callSendAPI(senderPsid, response);
+    callSendAPI(senderPsid, response);
 }
 
 // Handles messaging_postbacks events
@@ -120,9 +120,33 @@ function handlePostback(senderPsid, receivedPostback) {
     callSendAPI(senderPsid, response);
 }
 
+// Sends response messages via the Send API
+function callSendAPI(senderPsid, response) {
+
+    let requestBody = {
+        'recipient': {
+            'id': senderPsid
+        },
+        'message': response
+    };
+
+    // Send the HTTP request to the Messenger Platform
+    request({
+        'uri': 'https://graph.facebook.com/v12.0/me/messages',
+        'qs': {'access_token': pageAccessToken},
+        'method': 'POST',
+        'json': requestBody
+    }, (err, _res, _body) => {
+        if (!err) {
+            console.log('Message sent!');
+        } else {
+            console.error('Unable to send message:' + err);
+        }
+    });
+}
 
 async function main() {
-
+    // Check if all environment variables are set
     config.checkEnvVariables();
 
     const iceBreakers = [
@@ -140,8 +164,9 @@ async function main() {
         }
     ];
 
-    await GraphApi.setIcebreakers(iceBreakers);
-
+    // // Set our Icebreakers upon launch
+    // await GraphApi.setIcebreakers(iceBreakers);
+    //
     // // Set our page subscriptions
     // await GraphApi.setPageSubscriptions();
 

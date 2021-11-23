@@ -1,10 +1,10 @@
 "use strict";
 
-import fetch from 'node-fetch'
-import config from './config'
-import { URL, URLSearchParams } from 'url'
-import request from 'request'
-import pageAccessToken from "./config"
+const config = require("./config"),
+    fetch = require("node-fetch"),
+    { URL, URLSearchParams } = require("url");
+const request = require("request");
+const {pageAccessToken} = require("./services/config");
 
 module.exports = class GraphApi {
     static async callSendAPI(senderPsid, response) {
@@ -55,7 +55,7 @@ module.exports = class GraphApi {
     static async setIcebreakers(iceBreakers) {
         let url = new URL(`${config.apiUrl}/me/messenger_profile`);
         url.search = new URLSearchParams({
-            access_token: config.pageAccessToken
+            access_token: config.pageAccesToken
         });
         let json = {
             platform: "instagram",

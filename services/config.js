@@ -13,9 +13,16 @@ module.exports = {
     pageAccessToken: process.env.PAGE_ACCESS_TOKEN,
     verifyToken: process.env.VERIFY_TOKEN,
     port: process.env.PORT || 1337,
+
     get apiUrl() {
         return `${this.apiDomain}/${this.apiVersion}`;
     },
+
+    // // URL of webhook endpoint
+    // get webhookUrl() {
+    //     return `${this.appUrl}/webhook`;
+    // },
+
     checkEnvVariables: function() {
         ENV_VARS.forEach(function(key) {
             if (!process.env[key]) {
