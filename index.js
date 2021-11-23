@@ -18,8 +18,9 @@ app.post('/webhook', (req, res) => {
 
     let body = req.body;
 
-    if (body.object === 'page') {
+    if (body.object === 'instagram') {
 
+        console.log("EVENT_RECEIVED_CONSOLE")
         // Iterates over each entry - there may be multiple if batched
         body.entry.forEach(function (entry) {
             let webhookEvent = entry.messaging[0];
