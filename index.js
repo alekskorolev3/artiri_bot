@@ -1,12 +1,14 @@
 'use strict';
 
 const
+    fetch = require('cross-fetch'),
     express = require('express'),
     request = require('request'),
     config = require("./services/config"),
     {urlencoded, json} = require('body-parser'),
     app = express();
 const {verifyToken, pageAccessToken} = require("./services/config");
+const {URL, URLSearchParams} = require("url");
 
 app.use(urlencoded({extended: true}));
 
@@ -145,6 +147,27 @@ function callSendAPI(senderPsid, response) {
     });
 }
 
+async function setIcebreakers(iceBreakers) {
+    let url = new URL(`${config.apiUrl}/me/messenger_profile`);
+    url.search = new URLSearchParams({
+        access_token: config.pageAccesToken
+    });
+    let json = {
+        platform: "instagram",
+        ice_breakers: iceBreakers
+    };
+    let response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(json)
+    });
+    if (response.ok) {
+        console.log(`Icebreakers have been set.`);
+    } else {
+        console.warn(`Error setting ice breakers`, response.statusText);
+    }
+}
+
 async function main() {
     // Check if all environment variables are set
     config.checkEnvVariables();
@@ -164,8 +187,7 @@ async function main() {
         }
     ];
 
-    // // Set our Icebreakers upon launch
-    // await GraphApi.setIcebreakers(iceBreakers);
+    await setIcebreakers(iceBreakers);
     //
     // // Set our page subscriptions
     // await GraphApi.setPageSubscriptions();
