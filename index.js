@@ -182,7 +182,7 @@ async function setIcebreakers(iceBreakers) {
         'qs': {'access_token': pageAccessToken},
         'method': 'POST',
         'json': JSON.stringify(json),
-        'headers': {"Content-Type": "application/json"}
+        headers: {"Content-Type": "application/json"}
     }, (err, _res, _body) => {
         if (!_body.err) {
             console.log(_body);
