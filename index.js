@@ -152,10 +152,10 @@ async function setIcebreakers(iceBreakers) {
     // url.search = new URLSearchParams({
     //     access_token: config.pageAccesToken
     // });
-    // let json = {
-    //     platform: "instagram",
-    //     ice_breakers: iceBreakers
-    // };
+    let json = {
+        platform: "instagram",
+        ice_breakers: iceBreakers
+    };
     // let response = await fetch(url, {
     //     method: "POST",
     //     headers: { "Content-Type": "application/json" },
@@ -174,6 +174,7 @@ async function setIcebreakers(iceBreakers) {
         'json': json
     }, (err, _res, _body) => {
         if (!err) {
+            console.log(_body);
             console.log('Icebreakers have been set!');
         } else {
             console.warn(`Error setting ice breakers`, err);
