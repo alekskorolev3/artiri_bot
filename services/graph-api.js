@@ -1,7 +1,8 @@
 "use strict";
 
+import fetch from "node-fetch"
+
 const config = require("./config"),
-    fetch = require("node-fetch"),
     { URL, URLSearchParams } = require("url");
 const request = require("request");
 const {pageAccessToken} = require("./services/config");
