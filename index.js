@@ -152,6 +152,8 @@ async function setIcebreakers(iceBreakers) {
     // url.search = new URLSearchParams({
     //     access_token: config.pageAccesToken
     // });
+
+
     let json = {
         platform: "instagram",
         ice_breakers: iceBreakers
@@ -167,11 +169,20 @@ async function setIcebreakers(iceBreakers) {
     //     console.warn(`Error setting ice breakers`, response.statusText);
     // }
 
+    const options = {
+        url: 'https://api.github.com/repos/request/request',
+        qs: {'access_token': pageAccessToken},
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(json)
+    };
+
     request({
         'uri': 'https://graph.facebook.com/v12.0/me/messenger_profile',
         'qs': {'access_token': pageAccessToken},
         'method': 'POST',
-        'json': JSON.stringify(json)
+        'json': JSON.stringify(json),
+        'headers': {"Content-Type": "application/json"}
     }, (err, _res, _body) => {
         if (!_body.err) {
             console.log(_body);
