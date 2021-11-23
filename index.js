@@ -169,21 +169,22 @@ async function setIcebreakers(iceBreakers) {
     //     console.warn(`Error setting ice breakers`, response.statusText);
     // }
 
+    // {
+    //     'uri': 'https://graph.facebook.com/v12.0/me/messenger_profile',
+    //     'qs': {'access_token': pageAccessToken},
+    //     'method': 'POST',
+    //     'json': JSON.stringify(json),
+    //     headers: {"Content-Type": "application/json"}
+    // },
     const options = {
-        url: 'https://api.github.com/repos/request/request',
+        url: 'https://graph.facebook.com/v12.0/me/messenger_profile',
         qs: {'access_token': pageAccessToken},
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(json)
     };
 
-    request({
-        'uri': 'https://graph.facebook.com/v12.0/me/messenger_profile',
-        'qs': {'access_token': pageAccessToken},
-        'method': 'POST',
-        'json': JSON.stringify(json),
-        headers: {"Content-Type": "application/json"}
-    }, (err, _res, _body) => {
+    request(options, (err, _res, _body) => {
         if (!_body.err) {
             console.log(_body);
             console.log('Icebreakers have been set!');
