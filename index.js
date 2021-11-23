@@ -20,6 +20,7 @@ app.post('/webhook', (req, res) => {
 
     if (body.object === 'instagram') {
 
+        console.log(body)
         // Iterates over each entry - there may be multiple if batched
         body.entry.forEach(function (entry) {
             let webhookEvent = entry.messaging[0];
@@ -68,7 +69,7 @@ function handleMessage(senderPsid, receivedMessage) {
         // Create the payload for a basic text message, which
         // will be added to the body of your request to the Send API
         response = {
-            'text': `You sent the message: '${receivedMessage.text}'. Now send me an attachment!`
+            'text': `Вы отправили сообщение: '${receivedMessage.text}`
         };
     } else if (receivedMessage.attachments) {
 
@@ -80,18 +81,18 @@ function handleMessage(senderPsid, receivedMessage) {
                 'payload': {
                     'template_type': 'generic',
                     'elements': [{
-                        'title': 'Is this the right picture?',
-                        'subtitle': 'Tap a button to answer.',
+                        'title': 'Это нужное изображение?',
+                        'subtitle': 'Нажмите кнопку для ответа.',
                         'image_url': attachmentUrl,
                         'buttons': [
                             {
                                 'type': 'postback',
-                                'title': 'Yes!',
+                                'title': 'Да!',
                                 'payload': 'yes',
                             },
                             {
                                 'type': 'postback',
-                                'title': 'No!',
+                                'title': 'Нет!',
                                 'payload': 'no',
                             }
                         ],
@@ -114,9 +115,9 @@ function handlePostback(senderPsid, receivedPostback) {
 
     // Set the response based on the postback payload
     if (payload === 'yes') {
-        response = {'text': 'Thanks!'};
+        response = {'text': 'Благодарю!'};
     } else if (payload === 'no') {
-        response = {'text': 'Oops, try sending another image.'};
+        response = {'text': 'Упс! Попробуйте отправить другое сообщение.'};
     }
     // Send the message to acknowledge the postback
     callSendAPI(senderPsid, response);
