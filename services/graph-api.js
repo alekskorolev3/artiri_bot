@@ -1,11 +1,10 @@
 "use strict";
 
-import fetch from "node-fetch"
-
-const config = require("./config"),
-    { URL, URLSearchParams } = require("url");
-const request = require("request");
-const {pageAccessToken} = require("./services/config");
+import fetch from 'node-fetch'
+import config from './config'
+import { URL, URLSearchParams } from 'url'
+import request from 'request'
+import pageAccessToken from "./config"
 
 module.exports = class GraphApi {
     static async callSendAPI(senderPsid, response) {
