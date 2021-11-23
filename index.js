@@ -171,9 +171,9 @@ async function setIcebreakers(iceBreakers) {
         'uri': 'https://graph.facebook.com/v12.0/me/messenger_profile',
         'qs': {'access_token': pageAccessToken},
         'method': 'POST',
-        'json': json
+        'json': JSON.stringify(json)
     }, (err, _res, _body) => {
-        if (!err) {
+        if (!_body.err) {
             console.log(_body);
             console.log('Icebreakers have been set!');
         } else {
