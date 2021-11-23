@@ -148,24 +148,37 @@ function callSendAPI(senderPsid, response) {
 }
 
 async function setIcebreakers(iceBreakers) {
-    let url = new URL(`${config.apiUrl}/me/messenger_profile`);
-    url.search = new URLSearchParams({
-        access_token: config.pageAccesToken
+    // let url = "https://graph.facebook.com/v12.0/me/messenger_profile";
+    // url.search = new URLSearchParams({
+    //     access_token: config.pageAccesToken
+    // });
+    // let json = {
+    //     platform: "instagram",
+    //     ice_breakers: iceBreakers
+    // };
+    // let response = await fetch(url, {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(json)
+    // });
+    // if (response.ok) {
+    //     console.log(`Icebreakers have been set.`);
+    // } else {
+    //     console.warn(`Error setting ice breakers`, response.statusText);
+    // }
+
+    request({
+        'uri': 'https://graph.facebook.com/v12.0/me/messenger_profile',
+        'qs': {'access_token': pageAccessToken},
+        'method': 'POST',
+        'json': json
+    }, (err, _res, _body) => {
+        if (!err) {
+            console.log('Icebreakers have been set!');
+        } else {
+            console.warn(`Error setting ice breakers`, err);
+        }
     });
-    let json = {
-        platform: "instagram",
-        ice_breakers: iceBreakers
-    };
-    let response = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(json)
-    });
-    if (response.ok) {
-        console.log(`Icebreakers have been set.`);
-    } else {
-        console.warn(`Error setting ice breakers`, response.statusText);
-    }
 }
 
 async function main() {
