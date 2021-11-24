@@ -121,10 +121,12 @@ function handlePostback(senderPsid, receivedPostback) {
     let payload = receivedPostback.payload;
 
     // Set the response based on the postback payload
-    if (payload === 'yes') {
-        response = {'text': 'Благодарю!'};
-    } else if (payload === 'no') {
-        response = {'text': 'Упс! Попробуйте отправить другое сообщение.'};
+    if (payload === 'SALES') {
+        response = {'text': '*Написать текст по стоимости оплаты*'};
+    } else if (payload === 'ORDER') {
+        response = {'text': '*Здесь располагается алгоритм заказа*'};
+    } else if (payload === 'QUALITY') {
+        response = {'text': '*Здесь текст по качеству*'};
     }
     // Send the message to acknowledge the postback
     callSendAPI(senderPsid, response);
@@ -156,34 +158,10 @@ function callSendAPI(senderPsid, response) {
 }
 
 async function setIcebreakers(iceBreakers) {
-    // let url = "https://graph.facebook.com/v12.0/me/messenger_profile";
-    // url.search = new URLSearchParams({
-    //     access_token: config.pageAccesToken
-    // });
-
-
     let json = {
         platform: "instagram",
         ice_breakers: iceBreakers
     };
-    // let response = await fetch(url, {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(json)
-    // });
-    // if (response.ok) {
-    //     console.log(`Icebreakers have been set.`);
-    // } else {
-    //     console.warn(`Error setting ice breakers`, response.statusText);
-    // }
-
-    // {
-    //     'uri': 'https://graph.facebook.com/v12.0/me/messenger_profile',
-    //     'qs': {'access_token': pageAccessToken},
-    //     'method': 'POST',
-    //     'json': JSON.stringify(json),
-    //     headers: {"Content-Type": "application/json"}
-    // },
     const options = {
         url: 'https://graph.facebook.com/v12.0/me/messenger_profile',
         qs: {'access_token': pageAccessToken},
@@ -203,41 +181,27 @@ async function setIcebreakers(iceBreakers) {
 }
 
 async function main() {
-    // Check if all environment variables are set
     config.checkEnvVariables();
-
-    // const iceBreakers = [
-    //     {
-    //         question: "Test case 1",
-    //         payload: "CARE_SALES"
-    //     },
-    //     {
-    //         question: "Test case 3",
-    //         payload: "SEARCH_ORDER"
-    //     },
-    //     {
-    //         question: "Test case 3",
-    //         payload: "CARE_HELP"
-    //     }
-    // ];
-
     const iceBreakers = [
         {
             call_to_actions:
                 [
                     {
-                        question: "Test case 1",
-                        payload: "CARE_SALES"
+                        question: "Как производится оплата?",
+                        payload: "SALES"
                     },
                     {
-                        question: "Test case 3",
-                        payload: "SEARCH_ORDER"
+                        question: "Как можно заказать роспись?",
+                        payload: "ORDER"
+                    },
+                    {
+                        question: "Стоит ли мне беспокоится по поводу качества?",
+                        payload: "QUALITY"
                     }
                 ],
             locale: "default"
         }];
     await setIcebreakers(iceBreakers);
-
     app.listen(process.env.PORT || 1337, () => console.log('webhook is listening on port 1337'));
 }
 
