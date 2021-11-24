@@ -1,14 +1,12 @@
 'use strict';
 
 const
-    fetch = require('cross-fetch'),
     express = require('express'),
     request = require('request'),
     config = require("./services/config"),
     {urlencoded, json} = require('body-parser'),
     app = express();
 const {verifyToken, pageAccessToken} = require("./services/config");
-const {URL, URLSearchParams} = require("url");
 
 app.use(urlencoded({extended: true}));
 
@@ -40,6 +38,24 @@ app.post('/webhook', (req, res) => {
                 handleMessage(senderPsid, webhookEvent.message);
             } else if (webhookEvent.postback) {
                 handlePostback(senderPsid, webhookEvent.postback);
+            }
+
+            if ("changes" in entry) {
+                console.log("here")
+                if (entry.changes[0].field === "comments") {
+                    let change = entry.changes[0].value;
+                    if (entry.changes[0].value) console.log("Got a comments event");
+                    // return receiveMessage.handlePrivateReply("comment_id", change.id);
+                    let requestBody = {
+                        recipient: {
+                            "comment_id": change.id
+                        },
+                        message: "Спасибо за комментарий;)",
+                        tag: "HUMAN_AGENT"
+                    };
+
+                    callSendAPI(requestBody);
+                }
             }
         });
 
@@ -109,8 +125,14 @@ function handleMessage(senderPsid, receivedMessage) {
         };
     }
 
+    let requestBody = {
+        'recipient': {
+            'id': senderPsid
+        },
+        'message': response
+    };
     // Send the response message
-    callSendAPI(senderPsid, response);
+    callSendAPI(requestBody);
 }
 
 // Handles messaging_postbacks events
@@ -128,12 +150,6 @@ function handlePostback(senderPsid, receivedPostback) {
     } else if (payload === 'QUALITY') {
         response = {'text': '*Здесь текст по качеству*'};
     }
-    // Send the message to acknowledge the postback
-    callSendAPI(senderPsid, response);
-}
-
-// Sends response messages via the Send API
-function callSendAPI(senderPsid, response) {
 
     let requestBody = {
         'recipient': {
@@ -141,6 +157,14 @@ function callSendAPI(senderPsid, response) {
         },
         'message': response
     };
+    // Send the message to acknowledge the postback
+    callSendAPI(requestBody);
+}
+
+// Sends response messages via the Send API
+function callSendAPI(requestBody) {
+
+
 
     // Send the HTTP request to the Messenger Platform
     request({
