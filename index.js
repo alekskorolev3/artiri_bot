@@ -21,8 +21,15 @@ app.post('/webhook', (req, res) => {
     if (body.object === 'instagram') {
 
         console.log(body)
-        // Iterates over each entry - there may be multiple if batched
         body.entry.forEach(function (entry) {
+            // if ("changes" in entry) {
+            //     let receiveMessage = new Receive();
+            //     if (entry.changes[0].field === "comments") {
+            //         let change = entry.changes[0].value;
+            //         if (entry.changes[0].value) console.log("Got a comments event");
+            //         return receiveMessage.handlePrivateReply("comment_id", change.id);
+            //     }
+            // }
             let webhookEvent = entry.messaging[0];
 
             // Get the sender PSID
@@ -199,25 +206,37 @@ async function main() {
     // Check if all environment variables are set
     config.checkEnvVariables();
 
+    // const iceBreakers = [
+    //     {
+    //         question: "Test case 1",
+    //         payload: "CARE_SALES"
+    //     },
+    //     {
+    //         question: "Test case 3",
+    //         payload: "SEARCH_ORDER"
+    //     },
+    //     {
+    //         question: "Test case 3",
+    //         payload: "CARE_HELP"
+    //     }
+    // ];
+
     const iceBreakers = [
         {
-            question: "Test case 1",
-            payload: "CARE_SALES"
-        },
-        {
-            question: "Test case 3",
-            payload: "SEARCH_ORDER"
-        },
-        {
-            question: "Test case 3",
-            payload: "CARE_HELP"
-        }
-    ];
-
+            call_to_actions:
+                [
+                    {
+                        question: "Test case 1",
+                        payload: "CARE_SALES"
+                    },
+                    {
+                        question: "Test case 3",
+                        payload: "SEARCH_ORDER"
+                    }
+                ],
+            locale: "default"
+        }];
     await setIcebreakers(iceBreakers);
-    //
-    // // Set our page subscriptions
-    // await GraphApi.setPageSubscriptions();
 
     app.listen(process.env.PORT || 1337, () => console.log('webhook is listening on port 1337'));
 }
