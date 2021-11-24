@@ -187,15 +187,15 @@ async function main() {
             call_to_actions:
                 [
                     {
-                        question: "Как производится оплата?",
+                        question: "What about price?",
                         payload: "SALES"
                     },
                     {
-                        question: "Как можно заказать роспись?",
+                        question: "How to order custom?",
                         payload: "ORDER"
                     },
                     {
-                        question: "Стоит ли мне беспокоится по поводу качества?",
+                        question: "What about quality?",
                         payload: "QUALITY"
                     }
                 ],
