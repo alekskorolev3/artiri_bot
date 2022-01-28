@@ -207,15 +207,15 @@ async function main() {
                 [
                     {
                         question: "Price",
-                        payload: "SALES"
+                        payload: "SALE"
                     },
                     {
                         question: "Time",
-                        payload: "ORDER"
+                        payload: "ORDE"
                     },
                     {
                         question: "Quality",
-                        payload: "QUALITY"
+                        payload: "QUALIT"
                     }
                 ],
             locale: "default"
