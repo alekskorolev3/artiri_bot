@@ -42,10 +42,9 @@ app.post('/webhook', (req, res) => {
             let senderPsid = webhookEvent.sender.id;
             console.log('Sender PSID: ' + senderPsid);
 
-            // if (webhookEvent.message) {
-            //     handleMessage(senderPsid, webhookEvent.message);
-            // } else
-
+            if (webhookEvent.message) {
+                handleMessage(senderPsid, webhookEvent.message);
+            } else
             if (webhookEvent.postback) {
                 handlePostback(senderPsid, webhookEvent.postback);
             }
@@ -79,58 +78,60 @@ app.get('/webhook', (req, res) => {
 });
 
 function handleMessage(senderPsid, receivedMessage) {
-    let response;
+    // let response;
+    // if (receivedMessage.text) {
+    //
+    // } else if (receivedMessage.attachments) {
+    //
+    //     let attachmentUrl = receivedMessage.attachments[0].payload.url;
+    //     response = {
+    //         'attachment': {
+    //             'type': 'template',
+    //             'payload': {
+    //                 'template_type': 'generic',
+    //                 'elements': [{
+    //                     'title': 'Это нужное изображение?',
+    //                     'subtitle': 'Нажмите кнопку для ответа.',
+    //                     'image_url': attachmentUrl,
+    //                     'buttons': [
+    //                         {
+    //                             'type': 'postback',
+    //                             'title': 'Да!',
+    //                             'payload': 'yes',
+    //                         },
+    //                         {
+    //                             'type': 'postback',
+    //                             'title': 'Нет!',
+    //                             'payload': 'no',
+    //                         }
+    //                     ],
+    //                 }]
+    //             }
+    //         }
+    //     };
+    // }
+    //
+    // let requestBody = {
+    //     'recipient': {
+    //         'id': senderPsid
+    //     },
+    //     'message': response
+    // };
+    // // Send the response message
+    // callSendAPI(requestBody);
 
-    // Checks if the message contains text
-    if (receivedMessage.text) {
-        // Create the payload for a basic text message, which
-        // will be added to the body of your request to the Send API
-        response = {
-            'text': `Вы отправили сообщение: '${receivedMessage.text}`
+    if (receivedMessage.quick_reply) {
+        let postback = {
+            payload: receivedMessage.quick_reply.payload
         };
-    } else if (receivedMessage.attachments) {
-
-        // Get the URL of the message attachment
-        let attachmentUrl = receivedMessage.attachments[0].payload.url;
-        response = {
-            'attachment': {
-                'type': 'template',
-                'payload': {
-                    'template_type': 'generic',
-                    'elements': [{
-                        'title': 'Это нужное изображение?',
-                        'subtitle': 'Нажмите кнопку для ответа.',
-                        'image_url': attachmentUrl,
-                        'buttons': [
-                            {
-                                'type': 'postback',
-                                'title': 'Да!',
-                                'payload': 'yes',
-                            },
-                            {
-                                'type': 'postback',
-                                'title': 'Нет!',
-                                'payload': 'no',
-                            }
-                        ],
-                    }]
-                }
-            }
-        };
+        console.log(postback)
+        handlePostback(senderPsid, postback)
     }
-
-    let requestBody = {
-        'recipient': {
-            'id': senderPsid
-        },
-        'message': response
-    };
-    // Send the response message
-    callSendAPI(requestBody);
 }
 
 // Handles messaging_postbacks events
 function handlePostback(senderPsid, receivedPostback) {
+
     let response;
 
     // Get the payload for the postback
