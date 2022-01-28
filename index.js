@@ -348,13 +348,18 @@ function handlePostback(senderPsid, receivedPostback) {
                     },
                     {
                         "content_type": "text",
-                        "title": "Время работы⏰",
-                        "payload": "TIME"
+                        "title": "Цена💸",
+                        "payload": "PRICE"
                     },
                     {
                         "content_type": "text",
-                        "title": "Тест",
-                        "payload": "COLOUR"
+                        "title": "Одежда👕",
+                        "payload": "CLOTHES"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "Скидки и сертификаты",
+                        "payload": "DISCOUNT"
                     }
                 ]
             };
@@ -441,7 +446,7 @@ async function main() {
                         payload: "COLOUR"
                     },
                     {
-                        question: "ЦЕНА💸",
+                        question: "Цена💸",
                         payload: "PRICE"
                     },
                     {
