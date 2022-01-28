@@ -42,9 +42,11 @@ app.post('/webhook', (req, res) => {
             let senderPsid = webhookEvent.sender.id;
             console.log('Sender PSID: ' + senderPsid);
 
-            if (webhookEvent.message) {
-                handleMessage(senderPsid, webhookEvent.message);
-            } else if (webhookEvent.postback) {
+            // if (webhookEvent.message) {
+            //     handleMessage(senderPsid, webhookEvent.message);
+            // } else
+
+            if (webhookEvent.postback) {
                 handlePostback(senderPsid, webhookEvent.postback);
             }
 
