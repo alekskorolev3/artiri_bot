@@ -206,6 +206,24 @@ async function main() {
             call_to_actions:
                 [
                     {
+                        question: "Price",
+                        payload: "SALES"
+                    },
+                    {
+                        question: "Time",
+                        payload: "ORDER"
+                    },
+                    {
+                        question: "Quality",
+                        payload: "QUALITY"
+                    }
+                ],
+            locale: "default"
+        },
+        {
+            call_to_actions:
+                [
+                    {
                         question: "Цена",
                         payload: "SALES"
                     },
@@ -219,7 +237,10 @@ async function main() {
                     }
                 ],
             locale: "ru_RU"
-        }];
+        }
+    ];
+
+
     await setIcebreakers(iceBreakers);
     app.listen(process.env.PORT || 1337, () => console.log('webhook is listening on port 1337'));
 }
