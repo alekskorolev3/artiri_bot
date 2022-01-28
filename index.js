@@ -218,7 +218,7 @@ async function main() {
                         payload: "QUALITY"
                     }
                 ],
-            locale: "ru"
+            locale: "ru_RU"
         }];
     await setIcebreakers(iceBreakers);
     app.listen(process.env.PORT || 1337, () => console.log('webhook is listening on port 1337'));
