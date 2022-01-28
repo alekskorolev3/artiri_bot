@@ -135,8 +135,23 @@ function handlePostback(senderPsid, receivedPostback) {
     let payload = receivedPostback.payload;
 
     // Set the response based on the postback payload
-    if (payload === 'SALES') {
-        response = {'text': '*Написать текст по стоимости оплаты*'};
+    if (payload === 'COLOUR') {
+        response = {
+            'text': 'Я использую специальную акриловую краску по ткани. Она НЕ СМЫВАЕТСЯ!\n' +
+                '👉Главное придерживаться рекомендаций по уходу',
+            "quick_replies":[
+                {
+                    "content_type":"text",
+                    "title":"Рекомендации по уходу",
+                    "payload":"RECOMENDATIONS"
+                },
+                {
+                    "content_type":"text",
+                    "title":"Виды красок",
+                    "payload":"TYPES_OF_COLOUR"
+                }
+            ]
+        };
     } else if (payload === 'ORDER') {
         response = {
             'text': '*Здесь располагается алгоритм заказа*',
