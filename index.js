@@ -20,32 +20,11 @@ app.post('/webhook', (req, res) => {
 
         console.log(body)
         body.entry.forEach(function (entry) {
-            // if ("changes" in entry) {
-            //     let receiveMessage = new Receive();
-            //     if (entry.changes[0].field === "comments") {
-            //         let change = entry.changes[0].value;
-            //         if (entry.changes[0].value) console.log("Got a comments event");
-            //         return receiveMessage.handlePrivateReply("comment_id", change.id);
-            //     }
-            // }
-            let webhookEvent = entry.messaging[0];
-
-            // Get the sender PSID
-            let senderPsid = webhookEvent.sender.id;
-            console.log('Sender PSID: ' + senderPsid);
-
-            if (webhookEvent.message) {
-                handleMessage(senderPsid, webhookEvent.message);
-            } else if (webhookEvent.postback) {
-                handlePostback(senderPsid, webhookEvent.postback);
-            }
-
             if ("changes" in entry) {
                 console.log("here")
                 if (entry.changes[0].field === "comments") {
                     let change = entry.changes[0].value;
                     if (entry.changes[0].value) console.log("Got a comments event");
-                    // return receiveMessage.handlePrivateReply("comment_id", change.id);
                     let requestBody = {
                         recipient: {
                             "comment_id": change.id
@@ -57,6 +36,19 @@ app.post('/webhook', (req, res) => {
                     callSendAPI(requestBody);
                 }
             }
+
+            let webhookEvent = entry.messaging[0];
+
+            let senderPsid = webhookEvent.sender.id;
+            console.log('Sender PSID: ' + senderPsid);
+
+            if (webhookEvent.message) {
+                handleMessage(senderPsid, webhookEvent.message);
+            } else if (webhookEvent.postback) {
+                handlePostback(senderPsid, webhookEvent.postback);
+            }
+
+
         });
 
         res.status(200).send('EVENT_RECEIVED');
@@ -146,7 +138,10 @@ function handlePostback(senderPsid, receivedPostback) {
     if (payload === 'SALES') {
         response = {'text': '*Написать текст по стоимости оплаты*'};
     } else if (payload === 'ORDER') {
-        response = {'text': '*Здесь располагается алгоритм заказа*'};
+        response = {
+            'text': '*Здесь располагается алгоритм заказа*',
+            'payload': 'QUALITY'
+        };
     } else if (payload === 'QUALITY') {
         response = {'text': '*Здесь текст по качеству*'};
     }
@@ -211,15 +206,15 @@ async function main() {
             call_to_actions:
                 [
                     {
-                        question: "What about price?",
+                        question: "Цена",
                         payload: "SALES"
                     },
                     {
-                        question: "How to order custom?",
+                        question: "Время",
                         payload: "ORDER"
                     },
                     {
-                        question: "What about quality?",
+                        question: "Качество",
                         payload: "QUALITY"
                     }
                 ],
