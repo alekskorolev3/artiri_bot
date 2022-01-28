@@ -219,24 +219,6 @@ async function main() {
                     }
                 ],
             locale: "default"
-        },
-        {
-            call_to_actions:
-                [
-                    {
-                        question: "Цена",
-                        payload: "SALES"
-                    },
-                    {
-                        question: "Время",
-                        payload: "ORDER"
-                    },
-                    {
-                        question: "Качество",
-                        payload: "QUALITY"
-                    }
-                ],
-            locale: "ru_RU"
         }
     ];
 
