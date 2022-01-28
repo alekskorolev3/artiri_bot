@@ -182,7 +182,7 @@ async function setIcebreakers(iceBreakers) {
         ice_breakers: iceBreakers
     };
     const options = {
-        url: 'https://graph.facebook.com/v11.0/me/messenger_profile',
+        url: 'https://graph.facebook.com/v12.0/me/messenger_profile',
         qs: {'access_token': pageAccessToken},
         method: "POST",
         headers: {"Content-Type": "application/json"},
@@ -207,15 +207,15 @@ async function main() {
                 [
                     {
                         question: "Price",
-                        payload: "SALE"
+                        payload: "SALES"
                     },
                     {
                         question: "Time",
-                        payload: "ORDE"
+                        payload: "ORDER"
                     },
                     {
                         question: "Quality",
-                        payload: "QUALIT"
+                        payload: "QUALITY"
                     }
                 ],
             locale: "default"
