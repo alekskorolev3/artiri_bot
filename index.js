@@ -224,8 +224,8 @@ async function main() {
             call_to_actions:
                 [
                     {
-                        question: "Цена",
-                        payload: "SALES"
+                        question: "Стойкость краски 🎨",
+                        payload: "COLOUR"
                     },
                     {
                         question: "Время",
