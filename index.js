@@ -8,6 +8,8 @@ const
     app = express();
 const {verifyToken, pageAccessToken} = require("./services/config");
 
+let lastPostback = "";
+
 app.use(urlencoded({extended: true}));
 
 app.use(json());
@@ -118,6 +120,11 @@ function handlePostback(senderPsid, receivedPostback) {
                     },
                     {
                         "content_type": "text",
+                        "title": "Время работы⏰",
+                        "payload": "TIME"
+                    },
+                    {
+                        "content_type": "text",
                         "title": "Назад",
                         "payload": "BACK"
                     }
@@ -139,7 +146,7 @@ function handlePostback(senderPsid, receivedPostback) {
                     {
                         "content_type": "text",
                         "title": "Назад",
-                        "payload": "BACK"
+                        "payload": lastPostback
                     }
                 ]
             };
@@ -175,12 +182,37 @@ function handlePostback(senderPsid, receivedPostback) {
                 "quick_replies": [
                     {
                         "content_type": "text",
+                        "title": "Доставка и оплата",
+                        "payload": "DELIVERING_AND_PAYMENT"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "Время работы⏰",
+                        "payload": "TIME"
+                    },
+                    {
+                        "content_type": "text",
                         "title": "Назад",
                         "payload": "BACK"
                     }
                 ]
             };
             break;
+        case 'TIME':
+            response = {
+                'text': 'Время работы зависи от сложности работы и срочности исполнения заказа. Обсуждается в индивидуальном порядке 😏\n' +
+                    'Срочный заказы от 2-5 дней\n' +
+                    'Обычные от 3 до 14 дней\n',
+                "quick_replies": [
+                    {
+                        "content_type": "text",
+                        "title": "Назад",
+                        "payload": "BACK"
+                    }
+                ]
+            };
+            break;
+
 
         case 'CLOTHES':
             response = {
@@ -191,7 +223,7 @@ function handlePostback(senderPsid, receivedPostback) {
                 "quick_replies": [
                     {
                         "content_type": "text",
-                        "title": "Список вещей",
+                        "title": "Список вещей для росписи",
                         "payload": "CLOTHES_LIST"
                     },
                     {
@@ -290,6 +322,33 @@ function handlePostback(senderPsid, receivedPostback) {
                 "quick_replies": [
                     {
                         "content_type": "text",
+                        "title": "Доставка и оплата",
+                        "payload": "DELIVERING_AND_PAYMENT"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "Назад",
+                        "payload": "BACK"
+                    }
+                ]
+            };
+            break;
+        case 'DELIVERING_AND_PAYMENT':
+            response = {
+                'text': '📨Доставка:\n' +
+                    '- белпочтой(+6р)\n' +
+                    '- европочтой(+4р)\n' +
+                    '- при личной встрече( Витебск, Барановичи, Минск)\n' +
+                    '\n' +
+                    '💰Оплата:\n' +
+                    'Предоплата 1/3 всей стоимости\n' +
+                    'Остальная часть после выполнения работы, перед пересылкой.\n' +
+                    '- наложенным платежом через почту\n' +
+                    '-перевод на карту\n' +
+                    '-наличными',
+                "quick_replies": [
+                    {
+                        "content_type": "text",
                         "title": "Назад",
                         "payload": "BACK"
                     }
@@ -353,7 +412,7 @@ function handlePostback(senderPsid, receivedPostback) {
                     },
                     {
                         "content_type": "text",
-                        "title": "Одежда👕",
+                        "title": "Какую одежду можно расписывать?👕",
                         "payload": "CLOTHES"
                     },
                     {
@@ -425,11 +484,11 @@ async function main() {
                 [
                     {
                         question: "Price",
-                        payload: "SALES"
+                        payload: "COLOUR"
                     },
                     {
                         question: "Time",
-                        payload: "ORDER"
+                        payload: "PRICE"
                     },
                     {
                         question: "Quality",
@@ -450,7 +509,7 @@ async function main() {
                         payload: "PRICE"
                     },
                     {
-                        question: "Одежда👕",
+                        question: "Какую одежду можно расписывать?👕",
                         payload: "CLOTHES"
                     },
                     {
