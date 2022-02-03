@@ -428,8 +428,8 @@ function handlePostback(senderPsid, receivedPostback) {
                     },
                     {
                         "content_type": "text",
-                        "title": "Скидки и сертификаты",
-                        "payload": "DISCOUNT"
+                        "title": "Связаться с человеком",
+                        "payload": "HUMAN_AGENT"
                     }
                 ]
             };
