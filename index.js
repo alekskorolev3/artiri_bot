@@ -192,6 +192,11 @@ function handlePostback(senderPsid, receivedPostback) {
                     },
                     {
                         "content_type": "text",
+                        "title": "Скидки и сертификаты",
+                        "payload": "DISCOUNT"
+                    },
+                    {
+                        "content_type": "text",
                         "title": "Назад",
                         "payload": "BACK"
                     }
@@ -521,10 +526,6 @@ async function main() {
                     {
                         question: "Связаться с человеком",
                         payload: "HUMAN_AGENT"
-                    },
-                    {
-                        question: "Скидки и сертификаты",
-                        payload: "DISCOUNT"
                     }
                 ],
             locale: "ru_RU"
