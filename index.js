@@ -395,6 +395,12 @@ function handlePostback(senderPsid, receivedPostback) {
             };
             break;
 
+        case 'HUMAN_AGENT':
+            response = {
+                'text': 'Привет, меня зовут Ирина! Чем я могу тебе помочь?'
+            };
+            break;
+
         case 'BACK':
             response = {
                 'text': 'Чем я могу Вам помочь?' +
@@ -511,6 +517,10 @@ async function main() {
                     {
                         question: "Какую одежду можно расписывать?👕",
                         payload: "CLOTHES"
+                    },
+                    {
+                        question: "Связаться с человеком",
+                        payload: "HUMAN_AGENT"
                     },
                     {
                         question: "Скидки и сертификаты",
