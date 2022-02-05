@@ -24,6 +24,8 @@ app.post('/webhook', (req, res) => {
 
         res.status(200).send('EVENT_RECEIVED');
 
+        console.log(body)
+
         body.entry.forEach(function (entry) {
             if ("changes" in entry) {
                 let receiveMessage = new Receive();
