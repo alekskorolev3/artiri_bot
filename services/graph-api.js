@@ -1,6 +1,7 @@
 "use strict";
 const request = require("request");
 const {pageAccessToken} = require("./config")
+const config = require("./config")
 const {URL, URLSearchParams} = require("url");
 
 module.exports = class GraphApi {
