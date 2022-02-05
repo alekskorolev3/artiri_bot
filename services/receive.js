@@ -27,8 +27,6 @@ module.exports = class Receive {
     handleMessage() {
         let event = this.webhookEvent;
 
-        console.log(event)
-
         let responses;
 
         try {
@@ -120,7 +118,9 @@ module.exports = class Receive {
 
     handlePostback() {
 
-        let payload = this.webhookEvent.message.postback.payload;
+        console.log(this.webhookEvent)
+
+        let payload = this.webhookEvent.postback.payload;
 
         console.log(payload, senderIgsid)
 
