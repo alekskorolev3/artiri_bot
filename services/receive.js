@@ -122,7 +122,7 @@ module.exports = class Receive {
 
         let payload = this.webhookEvent.postback.payload;
 
-        console.log(payload, senderIgsid)
+        console.log(payload, this.senderIgsid)
 
         return this.handlePayload(payload);
     }
