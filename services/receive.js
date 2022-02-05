@@ -29,6 +29,8 @@ module.exports = class Receive {
 
         let responses;
 
+        console.log(event)
+
         try {
             if (event.message) {
                 let message = event.message;
