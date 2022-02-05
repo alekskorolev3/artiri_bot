@@ -89,11 +89,7 @@ module.exports = class Receive {
         }
 
         if (this.webhookEvent.message.reply_to) {
-
-
-            let min = Math.ceil(0);
-            let max = Math.floor(16);
-            response = reactions[2];
+            response = reactions[Math.floor(Math.random() * (17))];
             console.log(response)
         }
 
@@ -107,10 +103,7 @@ module.exports = class Receive {
         let attachment = this.webhookEvent.message.attachments[0];
         console.log("Received attachment:", `${attachment} for ${this.senderIgsid}`);
 
-        let min = Math.ceil(0);
-        let max = Math.floor(16);
-
-        response = reactions[Math.random() * (max - min) + min]
+        response = reactions[Math.floor(Math.random() * (17))]
 
         return response;
     }
