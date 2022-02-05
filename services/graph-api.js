@@ -1,6 +1,7 @@
 "use strict";
 const request = require("request");
 const {pageAccessToken} = require("./config")
+const {URL, URLSearchParams} = require("url");
 
 module.exports = class GraphApi {
 
@@ -40,5 +41,26 @@ module.exports = class GraphApi {
                 console.warn(`Error setting ice breakers`, err);
             }
         });
+    }
+
+    static async getUserProfile(senderIgsid) {
+        let url = new URL(`${config.apiUrl}/${senderIgsid}`);
+        url.search = new URLSearchParams({
+            access_token: config.pageAccesToken,
+            fields: "name,profile_pic"
+        });
+        let response = await fetch(url);
+        if (response.ok) {
+            let userProfile = await response.json();
+            return {
+                name: userProfile.name,
+                profilePic: userProfile.profile_pic
+            };
+        } else {
+            console.warn(
+                `Could not load profile for ${senderIgsid}: ${response.statusText}`
+            );
+            return null;
+        }
     }
 };

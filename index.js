@@ -8,7 +8,7 @@ const
 const Receive = require("./services/receive");
 const User = require("./services/user");
 const {iceBreakers} = require("./services/const");
-const GraphAPI = require("./services/graph-api");
+const GraphApi = require("./services/graph-api");
 
 let users = {};
 
@@ -187,7 +187,7 @@ app.get('/webhook', (req, res) => {
 async function main() {
     // config.checkEnvVariables();
 
-    await GraphAPI.setIcebreakers(iceBreakers);
+    await GraphApi.setIcebreakers(iceBreakers);
 
     app.listen(process.env.PORT || 1337, () => console.log('webhook is listening on port 1337'));
 }
