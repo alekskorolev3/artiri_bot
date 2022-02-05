@@ -189,18 +189,15 @@ module.exports = class Receive {
     }
 
     handlePrivateReply(type, object_id) {
-        // NOTE: For production, private replies must be sent by a human agent.
-        // This code is for illustrative purposes only.
-
         let requestBody = {
             recipient: {
                 [type]: object_id
             },
-            message: Response.genText(i18n.__("private_reply.post")),
+            message: "Спасибо, что оставили комментарий под моим постом)",
             tag: "HUMAN_AGENT"
         };
 
-        GraphApi.callSendApi(requestBody);
+        GraphApi.callSendAPI(requestBody);
     }
 
     sendMessage(response, delay = 0) {

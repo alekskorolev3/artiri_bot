@@ -20,11 +20,11 @@ app.post('/webhook', (req, res) => {
 
     let body = req.body;
 
+    console.log(body)
+
     if (body.object === 'instagram') {
 
         res.status(200).send('EVENT_RECEIVED');
-
-        console.log(body)
 
         body.entry.forEach(function (entry) {
             if ("changes" in entry) {
