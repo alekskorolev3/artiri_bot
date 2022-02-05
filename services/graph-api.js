@@ -3,6 +3,7 @@ const request = require("request");
 const {pageAccessToken} = require("./config")
 const config = require("./config")
 const {URL, URLSearchParams} = require("url");
+const fetch = import("node-fetch");
 
 module.exports = class GraphApi {
 
