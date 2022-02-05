@@ -88,6 +88,13 @@ module.exports = class Receive {
             response = this.handlePayload(receivedMessage.quick_reply.payload)
         }
 
+        if (this.webhookEvent.message.reply_to) {
+            let min = Math.ceil(0);
+            let max = Math.floor(16);
+
+            response = reactions[Math.random() * (max - min) + min]
+        }
+
         return response;
     }
 
