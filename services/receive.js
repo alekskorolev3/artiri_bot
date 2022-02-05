@@ -98,16 +98,9 @@ module.exports = class Receive {
         let attachment = this.webhookEvent.message.attachments[0];
         console.log("Received attachment:", `${attachment} for ${this.senderIgsid}`);
 
-        response = Response.genQuickReply(i18n.__("fallback.attachment"), [
-            {
-                title: i18n.__("menu.help"),
-                payload: "CARE_HELP"
-            },
-            {
-                title: i18n.__("menu.start_over"),
-                payload: "GET_STARTED"
-            }
-        ]);
+        response = {
+            text: "Спасибо, что отметили меня в сторис"
+        }
 
         return response;
     }
@@ -193,7 +186,7 @@ module.exports = class Receive {
             recipient: {
                 [type]: object_id
             },
-            message: "Спасибо, что оставили комментарий под моим постом)",
+            message: "тест",
             tag: "HUMAN_AGENT"
         };
 
