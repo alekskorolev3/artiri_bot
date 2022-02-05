@@ -5,7 +5,6 @@ const
     config = require("./services/config"),
     {urlencoded, json} = require('body-parser'),
     app = express();
-const {verifyToken} = require("./services/config");
 const Receive = require("./services/receive");
 const User = require("./services/user");
 const {iceBreakers} = require("./services/const");
@@ -76,7 +75,7 @@ app.get('/webhook', (req, res) => {
     let challenge = req.query['hub.challenge'];
 
     if (mode && token) {
-        if (mode === 'subscribe' && token === verifyToken) {
+        if (mode === 'subscribe' && token === config.verifyToken) {
 
             console.log('WEBHOOK_VERIFIED');
             res.status(200).send(challenge);
@@ -186,7 +185,7 @@ app.get('/webhook', (req, res) => {
 
 
 async function main() {
-    config.checkEnvVariables();
+    // config.checkEnvVariables();
 
     await GraphAPI.setIcebreakers(iceBreakers);
 

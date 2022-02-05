@@ -16,7 +16,7 @@ const {
     certificatesResponse,
     humanAgentResponse,
     backResponse
-} = require("./services/const");
+} = require("./const");
 
 module.exports = class Receive {
     constructor(user, webhookEvent) {
@@ -87,47 +87,6 @@ module.exports = class Receive {
         }
 
         return response;
-        // let message = this.webhookEvent.message.text.trim().toLowerCase();
-        //
-        // let response;
-        //
-        // if (message.includes("start over") || message.includes("get started")) {
-        //     response = Response.genNuxMessage(this.user);
-        // } else if (Number(message)) {
-        //     // Assume numeric input ("123") to be an order number
-        //     response = Order.handlePayload("ORDER_NUMBER");
-        // } else if (message.includes("#")) {
-        //     // Input with # is treated as a suggestion
-        //     response = Survey.handlePayload("CSAT_SUGGESTION");
-        // } else if (message.includes(i18n.__("care.help").toLowerCase())) {
-        //     let care = new Care(this.user, this.webhookEvent);
-        //     response = care.handlePayload("CARE_HELP");
-        // } else {
-        //     response = [
-        //         Response.genText(
-        //             i18n.__("fallback.any", {
-        //                 message: this.webhookEvent.message.text
-        //             })
-        //         ),
-        //         Response.genText(i18n.__("get_started.guidance")),
-        //         Response.genQuickReply(i18n.__("get_started.help"), [
-        //             {
-        //                 title: i18n.__("menu.suggestion"),
-        //                 payload: "CURATION"
-        //             },
-        //             {
-        //                 title: i18n.__("menu.help"),
-        //                 payload: "CARE_HELP"
-        //             },
-        //             {
-        //                 title: i18n.__("menu.start_over"),
-        //                 payload: "GET_STARTED"
-        //             }
-        //         ])
-        //     ];
-        // }
-        //
-        // return response;
     }
 
     handleAttachmentMessage() {
