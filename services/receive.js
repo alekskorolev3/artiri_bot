@@ -120,7 +120,7 @@ module.exports = class Receive {
 
     handlePostback() {
 
-        let payload = this.webhookEvent.message.quick_reply.payload;
+        let payload = this.webhookEvent.message.postback.payload;
 
         console.log(payload, senderIgsid)
 
