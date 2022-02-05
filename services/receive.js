@@ -15,7 +15,7 @@ const {
     discountResponse,
     certificatesResponse,
     humanAgentResponse,
-    backResponse, reactions
+    backResponse, reactions, humanOtherResponse, humanPriceResponse, humanOrderResponse
 } = require("./const");
 
 module.exports = class Receive {
@@ -175,6 +175,15 @@ module.exports = class Receive {
                 break;
             case 'HUMAN_AGENT':
                 response = humanAgentResponse;
+                break;
+            case 'HUMAN_ORDER':
+                response = humanOrderResponse;
+                break;
+            case 'HUMAN_PRICE':
+                response = humanPriceResponse;
+                break;
+            case 'HUMAN_OTHER':
+                response = humanOtherResponse;
                 break;
             case 'BACK':
                 response = backResponse;
