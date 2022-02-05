@@ -93,7 +93,7 @@ module.exports = class Receive {
 
             let min = Math.ceil(0);
             let max = Math.floor(16);
-            response = reactions[Math.random() * (max - min) + min];
+            response = reactions[2];
             console.log(response)
         }
 
