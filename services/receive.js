@@ -15,7 +15,7 @@ const {
     discountResponse,
     certificatesResponse,
     humanAgentResponse,
-    backResponse
+    backResponse, reactions
 } = require("./const");
 
 module.exports = class Receive {
@@ -98,9 +98,10 @@ module.exports = class Receive {
         let attachment = this.webhookEvent.message.attachments[0];
         console.log("Received attachment:", `${attachment} for ${this.senderIgsid}`);
 
-        response = {
-            text: "Спасибо, что отметили меня в сторис"
-        }
+        let min = Math.ceil(0);
+        let max = Math.floor(16);
+
+        response = reactions[Math.random() * (max - min) + min]
 
         return response;
     }
