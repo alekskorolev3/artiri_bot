@@ -27,6 +27,8 @@ module.exports = class Receive {
     handleMessage() {
         let event = this.webhookEvent;
 
+        console.log(event)
+
         let responses;
 
         try {
