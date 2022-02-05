@@ -47,18 +47,18 @@ app.post('/webhook', (req, res) => {
 
                 let senderIgsid = webhookEvent.sender.id;
 
-                if (!(senderIgsid in users)) {
-                    let user = new User(senderIgsid);
-                    let userProfile = await GraphApi.getUserProfile(senderIgsid);
-                    if (userProfile) {
-                        user.setProfile(userProfile);
-                        users[senderIgsid] = user;
-                        console.log(`Created new user profile`);
-                        console.dir(user);
-                    }
-                }
+                // if (!(senderIgsid in users)) {
+                //     let user = new User(senderIgsid);
+                //     let userProfile = await GraphApi.getUserProfile(senderIgsid);
+                //     if (userProfile) {
+                //         user.setProfile(userProfile);
+                //         users[senderIgsid] = user;
+                //         console.log(`Created new user profile`);
+                //         console.dir(user);
+                //     }
+                // }
 
-                let receiveMessage = new Receive(users[senderIgsid], webhookEvent);
+                let receiveMessage = new Receive(senderIgsid, webhookEvent);
                 return receiveMessage.handleMessage();
             });
         });

@@ -19,8 +19,8 @@ const {
 } = require("./const");
 
 module.exports = class Receive {
-    constructor(user, webhookEvent) {
-        this.user = user;
+    constructor(senderIgsid, webhookEvent) {
+        this.senderIgsid = senderIgsid;
         this.webhookEvent = webhookEvent;
     }
 
@@ -72,7 +72,7 @@ module.exports = class Receive {
 
     handleTextMessage() {
         console.log(
-            `Received text from user '${this.user.name}' (${this.user.igsid}):\n`,
+            `Received text from (${this.senderIgsid}):\n`,
             this.webhookEvent.message.text
         );
 
@@ -94,7 +94,7 @@ module.exports = class Receive {
 
         // Get the attachment
         let attachment = this.webhookEvent.message.attachments[0];
-        console.log("Received attachment:", `${attachment} for ${this.user.igsid}`);
+        console.log("Received attachment:", `${attachment} for ${this.senderIgsid}`);
 
         response = Response.genQuickReply(i18n.__("fallback.attachment"), [
             {
@@ -120,7 +120,7 @@ module.exports = class Receive {
 
         let payload = this.webhookEvent.message.quick_reply.payload;
 
-        console.log(payload, user)
+        console.log(payload, senderIgsid)
 
         return this.handlePayload(payload);
     }
@@ -132,7 +132,7 @@ module.exports = class Receive {
     }
 
     handlePayload(payload) {
-        console.log(`Received Payload: ${payload} for user ${this.user.igsid}`);
+        console.log(`Received Payload: ${payload} for user ${this.senderIgsid}`);
 
         let response;
 
@@ -207,7 +207,7 @@ module.exports = class Receive {
 
         let requestBody = {
             recipient: {
-                id: this.user.igsid
+                id: this.senderIgsid
             },
             message: response
         };
