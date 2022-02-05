@@ -117,7 +117,10 @@ module.exports = class Receive {
     }
 
     handlePostback() {
+
         let payload = this.webhookEvent.message.quick_reply.payload;
+
+        console.log(payload, user)
 
         return this.handlePayload(payload);
     }
