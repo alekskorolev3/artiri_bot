@@ -30,6 +30,7 @@ app.post('/webhook', (req, res) => {
             if ("changes" in entry) {
                 let receiveMessage = new Receive();
                 if (entry.changes[0].field === "comments") {
+                    console.log(entry)
                     let change = entry.changes[0].value;
                     if (entry.changes[0].value) console.log("Got a comments event");
                     return receiveMessage.handlePrivateReply("comment_id", change.id);
