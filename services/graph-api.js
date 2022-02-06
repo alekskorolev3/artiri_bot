@@ -37,8 +37,7 @@ module.exports = class GraphApi {
             }
         });
 
-        console.log(response);
-        return response.id;
+        console.log(response.body.id);
     }
 
     static async getPersonas() {
