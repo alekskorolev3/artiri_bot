@@ -23,19 +23,37 @@ module.exports = class GraphApi {
     }
 
     static async setPersona(requestBody) {
-        return request({
-            'uri': 'https://graph.facebook.com/me/personas',
-            'qs': {'access_token': pageAccessToken},
-            'method': 'POST',
-            'json': requestBody
-        }, (err, _res, _body) => {
-            if (!err) {
-                console.log('Persona has been set!');
-                return _body.id;
-            } else {
-                console.error('Unable to set persona:' + err);
-            }
+
+        return new Promise(function(resolve, reject){
+            request( {
+                'uri': 'https://graph.facebook.com/me/personas',
+                'qs': {'access_token': pageAccessToken},
+                'method': 'POST',
+                'json': requestBody
+            },(err, _res, _body)=> {
+
+                if (err) return reject(err);
+                try {
+                    resolve(JSON.parse(_body));
+                } catch(e) {
+                    reject(e);
+                }
+            });
         });
+
+        // return request({
+        //     'uri': 'https://graph.facebook.com/me/personas',
+        //     'qs': {'access_token': pageAccessToken},
+        //     'method': 'POST',
+        //     'json': requestBody
+        // }, (err, _res, _body) => {
+        //     if (!err) {
+        //         console.log('Persona has been set!');
+        //         return _body.id;
+        //     } else {
+        //         console.error('Unable to set persona:' + err);
+        //     }
+        // });
     }
 
     static async getPersonas() {
