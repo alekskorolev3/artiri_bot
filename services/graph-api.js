@@ -33,7 +33,7 @@ module.exports = class GraphApi {
             },(err, res, body)=> {
                 if (err) return reject(err);
                 try {
-                    resolve(JSON.parse(body));
+                    resolve(body);
                 } catch(e) {
                     reject(e);
                 }
