@@ -24,17 +24,16 @@ module.exports = class GraphApi {
 
     static async setPersona(requestBody) {
 
-        return new Promise(function(resolve, reject){
+        return new Promise((resolve, reject) => {
             request( {
                 'uri': 'https://graph.facebook.com/me/personas',
                 'qs': {'access_token': pageAccessToken},
                 'method': 'POST',
                 'json': requestBody
-            },(err, _res, _body)=> {
-
+            },(err, res, body)=> {
                 if (err) return reject(err);
                 try {
-                    resolve(JSON.parse(_body));
+                    resolve(JSON.parse(body));
                 } catch(e) {
                     reject(e);
                 }
