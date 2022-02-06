@@ -23,7 +23,7 @@ module.exports = class GraphApi {
     }
 
     static async setPersona(requestBody) {
-        request({
+        let response = await request({
             'uri': 'https://graph.facebook.com/me/personas',
             'qs': {'access_token': pageAccessToken},
             'method': 'POST',
@@ -35,7 +35,10 @@ module.exports = class GraphApi {
             } else {
                 console.error('Unable to set persona:' + err);
             }
-        }).then((response) => {return response.id});
+        });
+
+        console.log(response);
+        return response.id;
     }
 
     static async getPersonas() {
