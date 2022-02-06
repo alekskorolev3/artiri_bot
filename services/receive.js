@@ -226,6 +226,7 @@ module.exports = class Receive {
         };
 
         if (this.persona_id) {
+            console.log(here)
             requestBody = {
                 recipient: {
                     id: this.senderIgsid
