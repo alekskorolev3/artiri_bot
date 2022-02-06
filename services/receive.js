@@ -224,18 +224,19 @@ module.exports = class Receive {
             message: response
         };
 
-        if (this.is_human_agent) {
-            console.log("here")
-            requestBody = {
-                recipient: {
-                    id: this.senderIgsid
-                },
-                target_app_id: 1217981644879628
-            }
-            this.is_human_agent = false;
-            GraphApi.passThreadControl(requestBody);
-        } else {
-            setTimeout(() => GraphApi.callSendAPI(requestBody), delay);
-        }
+        // if (this.is_human_agent) {
+        //     console.log("here")
+        //     requestBody = {
+        //         recipient: {
+        //             id: this.senderIgsid
+        //         },
+        //         target_app_id: 1217981644879628
+        //     }
+        //     this.is_human_agent = false;
+        //     GraphApi.passThreadControl(requestBody);
+        // } else {
+        //     setTimeout(() => GraphApi.callSendAPI(requestBody), delay);
+        // }
+        setTimeout(() => GraphApi.callSendAPI(requestBody), delay);
     }
 };
