@@ -225,6 +225,7 @@ module.exports = class Receive {
         };
 
         if (this.is_human_agent) {
+            console.log("here")
             requestBody = {
                 recipient: {
                     id: this.senderIgsid
