@@ -37,24 +37,6 @@ module.exports = class GraphApi {
         });
     }
 
-    static async setPersona(requestBody) {
-
-        return new Promise((resolve, reject) => {
-            request( {
-                'uri': 'https://graph.facebook.com/me/personas',
-                'qs': {'access_token': pageAccessToken},
-                'method': 'POST',
-                'json': requestBody
-            },(err, res, body)=> {
-                if (err) return reject(err);
-                try {
-                    resolve(body);
-                } catch(e) {
-                    reject(e);
-                }
-            });
-        });
-    }
 
     static async setIcebreakers(iceBreakers) {
         let json = {

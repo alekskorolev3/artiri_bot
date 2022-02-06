@@ -35,11 +35,16 @@ app.post('/webhook', (req, res) => {
                     if (entry.changes[0].value) console.log("Got a comments event");
                     return receiveMessage.handlePrivateReply("comment_id", change.id);
                 }
-                // if (entry.changes[0].field === "mentions") {
-                //     let change = entry.changes[0].value;
-                //     if (entry.changes[0].value) console.log("Got a mentions event");
-                //     return receiveMessage.handlePrivateReply("comment_id", change.comment_id);
-                // }
+            }
+
+            if ("standby" in entry) {
+                let requestBody = {
+                    recipient: {
+                        id: this.senderIgsid
+                    },
+                    target_app_id: 1217981644879628
+                };
+                GraphApi.passThreadControl(requestBody)
             }
 
             if (!("messaging" in entry)) {
