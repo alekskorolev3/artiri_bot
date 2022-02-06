@@ -222,7 +222,7 @@ module.exports = class Receive {
             delete response["delay"];
         }
 
-        console.log(this.persona_id)
+        console.log("Outside sendMessage if: " + this.persona_id)
 
         let requestBody = {
             recipient: {
@@ -232,7 +232,7 @@ module.exports = class Receive {
         };
 
         if (this.persona_id) {
-            console.log("In sendMessage: " + this.persona_id)
+            console.log("Inside sendMessage if: " + this.persona_id)
             requestBody = {
                 recipient: {
                     id: this.senderIgsid
