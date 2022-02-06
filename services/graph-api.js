@@ -30,6 +30,7 @@ module.exports = class GraphApi {
             'json': requestBody
         }, (err, _res, _body) => {
             if (!err) {
+                console.log(_body)
                 console.log('Persona has been set!');
             } else {
                 console.error('Unable to set persona:' + err);
