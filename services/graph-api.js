@@ -38,7 +38,7 @@ module.exports = class GraphApi {
 
         let data = await response.json();
 
-        console.log("Data: " + data)
+        console.log("Data: " + JSON.stringify(data))
     }
 
     static async getPersonas() {
