@@ -221,7 +221,7 @@ module.exports = class Receive {
 
         await GraphApi.setPersona(request).then((data) => {
             console.log("In setPersona promise: " + JSON.stringify(data.id))
-            this.persona_id = JSON.stringify(data.id)
+            this.persona_id = data.id
         })
 
         console.log("Outside sendMessage if: " + this.persona_id)
