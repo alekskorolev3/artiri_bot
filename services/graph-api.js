@@ -36,8 +36,6 @@ module.exports = class GraphApi {
                 console.error('Unable to set persona:' + err);
             }
         });
-
-        console.log("Data: " + JSON.stringify(data))
     }
 
     static async getPersonas() {
