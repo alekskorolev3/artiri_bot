@@ -22,6 +22,21 @@ module.exports = class GraphApi {
         });
     }
 
+    static async setPersona(requestBody) {
+        request({
+            'uri': 'https://graph.facebook.com/me/personas',
+            'qs': {'access_token': pageAccessToken},
+            'method': 'POST',
+            'json': requestBody
+        }, (err, _res, _body) => {
+            if (!err) {
+                console.log('Persona has been set!');
+            } else {
+                console.error('Unable to set persona:' + err);
+            }
+        });
+    }
+
     static async setIcebreakers(iceBreakers) {
         let json = {
             platform: "instagram",
