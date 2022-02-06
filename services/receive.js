@@ -22,6 +22,7 @@ module.exports = class Receive {
     constructor(senderIgsid, webhookEvent) {
         this.senderIgsid = senderIgsid;
         this.webhookEvent = webhookEvent;
+        this.persona_id = "";
     }
 
     handleMessage() {
@@ -178,8 +179,7 @@ module.exports = class Receive {
                     name: "Ирина",
                     profile_picture_url: "https://scontent-frt3-1.xx.fbcdn.net/v/t39.30808-6/252397487_404851784643484_3679721484420889658_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=t84SuebmO-gAX-qjV7L&tn=N3Hqf7fIDfNfDeMZ&_nc_ht=scontent-frt3-1.xx&oh=00_AT_Crkqzp1Ng5K2WyBcKUrM5kp_08m3MTsUWXw4_sEECsA&oe=6205127F"
                 };
-                GraphApi.setPersona(requestBody);
-                GraphApi.getPersonas();
+                this.persona_id = GraphApi.setPersona(requestBody);
                 response = humanAgentResponse;
                 break;
             case 'HUMAN_ORDER':
@@ -223,6 +223,16 @@ module.exports = class Receive {
             },
             message: response
         };
+
+        if (this.persona_id !== "") {
+            requestBody = {
+                recipient: {
+                    id: this.senderIgsid
+                },
+                message: response,
+                persona_id: this.persona_id
+            }
+        }
 
         setTimeout(() => GraphApi.callSendAPI(requestBody), delay);
     }
