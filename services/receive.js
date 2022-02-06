@@ -224,6 +224,8 @@ module.exports = class Receive {
             message: response
         };
 
+        console.log(this.persona_id)
+
         if (this.persona_id !== "") {
             requestBody = {
                 recipient: {
