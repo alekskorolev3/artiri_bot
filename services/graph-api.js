@@ -37,6 +37,7 @@ module.exports = class GraphApi {
         });
 
         let data = await response.json();
+
         console.log("Data: " + data)
     }
 
