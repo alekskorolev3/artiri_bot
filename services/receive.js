@@ -219,6 +219,8 @@ module.exports = class Receive {
             delete response["delay"];
         }
 
+        console.log(this.persona_id)
+
         let requestBody = {
             recipient: {
                 id: this.senderIgsid
