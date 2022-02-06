@@ -175,19 +175,15 @@ module.exports = class Receive {
                 response = certificatesResponse;
                 break;
             case 'HUMAN_AGENT':
-                this.is_human_agent = true;
                 response = humanAgentResponse;
                 break;
             case 'HUMAN_ORDER':
-                this.is_human_agent = true;
                 response = humanOrderResponse;
                 break;
             case 'HUMAN_PRICE':
-                this.is_human_agent = true;
                 response = humanPriceResponse;
                 break;
             case 'HUMAN_OTHER':
-                this.is_human_agent = true;
                 response = humanOtherResponse;
                 break;
             case 'BACK':
@@ -210,7 +206,7 @@ module.exports = class Receive {
         GraphApi.callSendAPI(requestBody);
     }
 
-    async sendMessage(response, delay = 0) {
+    sendMessage(response, delay = 0) {
         if ("delay" in response) {
             delay = response["delay"];
             delete response["delay"];
@@ -224,19 +220,6 @@ module.exports = class Receive {
             message: response
         };
 
-        // if (this.is_human_agent) {
-        //     console.log("here")
-        //     requestBody = {
-        //         recipient: {
-        //             id: this.senderIgsid
-        //         },
-        //         target_app_id: 1217981644879628
-        //     }
-        //     this.is_human_agent = false;
-        //     GraphApi.passThreadControl(requestBody);
-        // } else {
-        //     setTimeout(() => GraphApi.callSendAPI(requestBody), delay);
-        // }
         setTimeout(() => GraphApi.callSendAPI(requestBody), delay);
     }
 };
