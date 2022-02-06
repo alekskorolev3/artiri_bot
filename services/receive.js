@@ -230,13 +230,12 @@ module.exports = class Receive {
                 recipient: {
                     id: this.senderIgsid
                 },
-                message: response,
-                messaging_type: "MESSAGE_TAG",
-                tag: "HUMAN_AGENT"
+                target_app_id: 1217981644879628
             }
             this.is_human_agent = false;
+            GraphApi.passThreadControl(requestBody);
+        } else {
+            setTimeout(() => GraphApi.callSendAPI(requestBody), delay);
         }
-
-        setTimeout(() => GraphApi.callSendAPI(requestBody), delay);
     }
 };

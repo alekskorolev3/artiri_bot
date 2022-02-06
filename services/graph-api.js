@@ -22,6 +22,21 @@ module.exports = class GraphApi {
         });
     }
 
+    static async passThreadControl(requestBody) {
+        request({
+            'uri': 'https://graph.facebook.com/v12.0/me/pass_thread_control',
+            'qs': {'access_token': pageAccessToken},
+            'method': 'POST',
+            'json': requestBody
+        }, (err, _res, _body) => {
+            if (!err) {
+                console.log('Thread control successful!');
+            } else {
+                console.error('Unable to pass thread:' + err);
+            }
+        });
+    }
+
     static async setPersona(requestBody) {
 
         return new Promise((resolve, reject) => {
