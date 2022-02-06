@@ -23,7 +23,7 @@ module.exports = class GraphApi {
     }
 
     static async setPersona(requestBody) {
-        request({
+        return request({
             'uri': 'https://graph.facebook.com/me/personas',
             'qs': {'access_token': pageAccessToken},
             'method': 'POST',
