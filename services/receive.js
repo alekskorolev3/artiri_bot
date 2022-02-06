@@ -22,7 +22,7 @@ module.exports = class Receive {
     constructor(senderIgsid, webhookEvent) {
         this.senderIgsid = senderIgsid;
         this.webhookEvent = webhookEvent;
-        this.persona_id = "";
+        this.persona_id = null;
     }
 
     handleMessage() {
@@ -226,7 +226,7 @@ module.exports = class Receive {
         };
 
         if (this.persona_id) {
-            console.log(here)
+            console.log(this.persona_id)
             requestBody = {
                 recipient: {
                     id: this.senderIgsid

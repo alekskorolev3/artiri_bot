@@ -30,13 +30,12 @@ module.exports = class GraphApi {
             'json': requestBody
         }, (err, _res, _body) => {
             if (!err) {
-                console.log(_body)
+                console.log(_body.id)
                 console.log('Persona has been set!');
-                return _body;
             } else {
                 console.error('Unable to set persona:' + err);
             }
-        });
+        }).then((response) => {return response.id});
     }
 
     static async getPersonas() {
