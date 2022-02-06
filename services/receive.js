@@ -22,7 +22,6 @@ module.exports = class Receive {
     constructor(senderIgsid, webhookEvent) {
         this.senderIgsid = senderIgsid;
         this.webhookEvent = webhookEvent;
-        this.is_human_agent = false;
     }
 
     handleMessage() {
