@@ -38,8 +38,9 @@ app.post('/webhook', (req, res) => {
             }
 
             if ("standby" in entry) {
-                let senderIgsid = webhookEvent.standby.id;
-                console.log(webhookEvent.standby)
+                console.log(entry.standby)
+                let senderIgsid = entry.standby.id;
+
                 let requestBody = {
                     recipient: {
                         id: senderIgsid
