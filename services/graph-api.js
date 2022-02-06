@@ -38,6 +38,20 @@ module.exports = class GraphApi {
         });
     }
 
+    static async getPersonas() {
+        request({
+            'uri': 'https://graph.facebook.com/me/personas',
+            'qs': {'access_token': pageAccessToken},
+            'method': 'GET'
+        }, (err, _res, _body) => {
+            if (!err) {
+                console.log("Personas data: " + _body)
+            } else {
+                console.error('Unable to get personas:' + err);
+            }
+        });
+    }
+
     static async setIcebreakers(iceBreakers) {
         let json = {
             platform: "instagram",
