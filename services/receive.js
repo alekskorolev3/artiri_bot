@@ -22,12 +22,10 @@ module.exports = class Receive {
     constructor(senderIgsid, webhookEvent) {
         this.senderIgsid = senderIgsid;
         this.webhookEvent = webhookEvent;
-        this.persona_id = null;
+        this.is_human_agent = false;
     }
 
     handleMessage() {
-
-
 
         let event = this.webhookEvent;
         let responses;
@@ -177,15 +175,19 @@ module.exports = class Receive {
                 response = certificatesResponse;
                 break;
             case 'HUMAN_AGENT':
+                this.is_human_agent = true;
                 response = humanAgentResponse;
                 break;
             case 'HUMAN_ORDER':
+                this.is_human_agent = true;
                 response = humanOrderResponse;
                 break;
             case 'HUMAN_PRICE':
+                this.is_human_agent = true;
                 response = humanPriceResponse;
                 break;
             case 'HUMAN_OTHER':
+                this.is_human_agent = true;
                 response = humanOtherResponse;
                 break;
             case 'BACK':
@@ -214,17 +216,6 @@ module.exports = class Receive {
             delete response["delay"];
         }
 
-        let request = {
-            name: "Ирина",
-            profile_picture_url: "https://scontent-frt3-1.xx.fbcdn.net/v/t39.30808-6/252397487_404851784643484_3679721484420889658_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=t84SuebmO-gAX-qjV7L&tn=N3Hqf7fIDfNfDeMZ&_nc_ht=scontent-frt3-1.xx&oh=00_AT_Crkqzp1Ng5K2WyBcKUrM5kp_08m3MTsUWXw4_sEECsA&oe=6205127F"
-        };
-
-        await GraphApi.setPersona(request).then((data) => {
-            console.log("In setPersona promise: " + JSON.stringify(data.id))
-            this.persona_id = data.id
-        })
-
-        console.log("Outside sendMessage if: " + this.persona_id)
 
         let requestBody = {
             recipient: {
@@ -233,15 +224,16 @@ module.exports = class Receive {
             message: response
         };
 
-        if (this.persona_id) {
-            console.log("Inside sendMessage if: " + this.persona_id)
+        if (this.is_human_agent) {
             requestBody = {
                 recipient: {
                     id: this.senderIgsid
                 },
                 message: response,
-                persona_id: this.persona_id
+                messaging_type: "MESSAGE_TAG",
+                tag: "HUMAN_AGENT"
             }
+            this.is_human_agent = false;
         }
 
         setTimeout(() => GraphApi.callSendAPI(requestBody), delay);
