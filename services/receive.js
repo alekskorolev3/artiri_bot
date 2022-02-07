@@ -177,12 +177,15 @@ module.exports = class Receive {
                 response = humanAgentResponse;
                 break;
             case 'HUMAN_ORDER':
+                GraphApi.passThreadControl(this.senderIgsid)
                 response = humanOrderResponse;
                 break;
             case 'HUMAN_PRICE':
+                GraphApi.passThreadControl(this.senderIgsid)
                 response = humanPriceResponse;
                 break;
             case 'HUMAN_OTHER':
+                GraphApi.passThreadControl(this.senderIgsid)
                 response = humanOtherResponse;
                 break;
             case 'BACK':
