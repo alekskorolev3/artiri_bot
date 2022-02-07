@@ -22,15 +22,45 @@ module.exports = class GraphApi {
         });
     }
 
-    static async passThreadControl(requestBody) {
+
+    // static async checkThreadControl(senderIgsid) {
+    //
+    //     let requestBody = {
+    //         recipient: {
+    //             id: senderIgsid
+    //         }
+    //     }
+    //
+    //     request({
+    //         'uri': 'https://graph.facebook.com/v12.0/me/thread_owner',
+    //         'qs': {'access_token': pageAccessToken},
+    //         'method': 'POST',
+    //         'json': requestBody
+    //     }, (err, _res, _body) => {
+    //         if (!err) {
+    //             console.log('Thread control check: ' + _body);
+    //         } else {
+    //             console.error('Unable to pass thread:' + err);
+    //         }
+    //     });
+    // }
+
+    static async takeThreadControl(senderIgsid) {
+
+        let requestBody = {
+            recipient: {
+                id: senderIgsid
+            }
+        }
+
         request({
-            'uri': 'https://graph.facebook.com/v12.0/me/pass_thread_control',
+            'uri': 'https://graph.facebook.com/v12.0/me/take_thread_control',
             'qs': {'access_token': pageAccessToken},
             'method': 'POST',
             'json': requestBody
         }, (err, _res, _body) => {
             if (!err) {
-                console.log('Thread control successful!');
+                console.log('Thread control successful! ' + _body);
             } else {
                 console.error('Unable to pass thread:' + err);
             }

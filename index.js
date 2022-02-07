@@ -22,6 +22,7 @@ app.post('/webhook', (req, res) => {
 
     console.log(body)
 
+
     if (body.object === 'instagram') {
 
         res.status(200).send('EVENT_RECEIVED');
@@ -37,19 +38,6 @@ app.post('/webhook', (req, res) => {
                 }
             }
 
-            if ("standby" in entry) {
-                console.log(entry.standby)
-                let senderIgsid = entry.standby.sender.id;
-
-                let requestBody = {
-                    recipient: {
-                        id: senderIgsid
-                    },
-                    target_app_id: 1217981644879628
-                };
-                GraphApi.passThreadControl(requestBody)
-            }
-
             if (!("messaging" in entry)) {
                 console.warn("No messaging field in entry. Possibly a webhook test.");
                 return;
@@ -62,6 +50,8 @@ app.post('/webhook', (req, res) => {
                 }
 
                 let senderIgsid = webhookEvent.sender.id;
+
+                GraphApi.takeThreadControl(senderIgsid);
 
                 let receiveMessage = new Receive(senderIgsid, webhookEvent);
                 return receiveMessage.handleMessage();
