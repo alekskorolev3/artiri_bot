@@ -22,6 +22,7 @@ module.exports = class Receive {
     constructor(senderIgsid, webhookEvent) {
         this.senderIgsid = senderIgsid;
         this.webhookEvent = webhookEvent;
+        this.humanAgent = false;
     }
 
     handleMessage() {
@@ -177,15 +178,15 @@ module.exports = class Receive {
                 response = humanAgentResponse;
                 break;
             case 'HUMAN_ORDER':
-                GraphApi.passThreadControl(this.senderIgsid)
+                this.humanAgent = true
                 response = humanOrderResponse;
                 break;
             case 'HUMAN_PRICE':
-                GraphApi.passThreadControl(this.senderIgsid)
+                this.humanAgent = true
                 response = humanPriceResponse;
                 break;
             case 'HUMAN_OTHER':
-                GraphApi.passThreadControl(this.senderIgsid)
+                this.humanAgent = true
                 response = humanOtherResponse;
                 break;
             case 'BACK':
@@ -214,6 +215,14 @@ module.exports = class Receive {
             delete response["delay"];
         }
 
+        if (this.humanAgent) {
+            GraphApi.passThreadControl(this.senderIgsid)
+        }
+        else {
+            GraphApi.takeThreadControl(this.senderIgsid);
+        }
+
+        this.humanAgent = false
 
         let requestBody = {
             recipient: {
