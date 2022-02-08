@@ -51,6 +51,7 @@ app.post('/webhook', (req, res) => {
 
                 let senderIgsid = webhookEvent.sender.id;
 
+                await GraphApi.takeThreadControl(senderIgsid);
 
 
                 let receiveMessage = new Receive(senderIgsid, webhookEvent);

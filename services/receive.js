@@ -209,18 +209,13 @@ module.exports = class Receive {
         GraphApi.callSendAPI(requestBody);
     }
 
-    sendMessage(response, delay = 0) {
+    async sendMessage(response, delay = 0) {
         if ("delay" in response) {
             delay = response["delay"];
             delete response["delay"];
         }
 
-        if (this.humanAgent) {
-            GraphApi.passThreadControl(this.senderIgsid)
-        }
-        else {
-            GraphApi.takeThreadControl(this.senderIgsid);
-        }
+
 
         this.humanAgent = false
 
