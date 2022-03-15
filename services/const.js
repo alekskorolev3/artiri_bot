@@ -4,16 +4,20 @@ module.exports = {
             call_to_actions:
                 [
                     {
-                        question: "Price",
+                        question: "Стойкость краски 🎨",
                         payload: "COLOUR"
                     },
                     {
-                        question: "Time",
+                        question: "Цена💸",
                         payload: "PRICE"
                     },
                     {
-                        question: "Quality",
-                        payload: "QUALITY"
+                        question: "Какую одежду можно расписывать?👕",
+                        payload: "CLOTHES"
+                    },
+                    {
+                        question: "Связаться с человеком",
+                        payload: "HUMAN_AGENT"
                     }
                 ],
             locale: "default"
