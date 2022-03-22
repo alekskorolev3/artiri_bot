@@ -89,7 +89,7 @@ module.exports = class Receive {
             response = this.handlePayload(receivedMessage.quick_reply.payload)
         }
 
-        if (this.webhookEvent.message.reply_to) {
+        if (this.webhookEvent.message.reply_to.story) {
             response = reactions[Math.floor(Math.random() * (17))];
             console.log(response)
         }
