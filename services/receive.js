@@ -102,10 +102,11 @@ module.exports = class Receive {
 
         // Get the attachment
         let attachment = this.webhookEvent.message.attachments[0];
-        console.log(JSON.stringify(attachment))
-        console.log("Received attachment:", `${attachment} for ${this.senderIgsid}`);
 
-        response = reactions[Math.floor(Math.random() * (17))]
+        if (attachment.type === "story_mention") {
+            console.log("Received attachment:", `${attachment.type} for ${this.senderIgsid}`);
+            response = reactions[Math.floor(Math.random() * (17))]
+        }
 
         return response;
     }
