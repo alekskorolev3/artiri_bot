@@ -29,7 +29,7 @@ app.post('/webhook', (req, res) => {
 
         body.entry.forEach(function (entry) {
             if ("changes" in entry) {
-                console.log(entry.changes)
+                console.log(JSON.stringify(entry))
                 let receiveMessage = new Receive();
                 if (entry.changes[0].field === "comments") {
                     let change = entry.changes[0].value;

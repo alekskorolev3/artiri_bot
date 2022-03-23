@@ -83,15 +83,18 @@ module.exports = class Receive {
 
         if (this.webhookEvent.message.text === '+') {
             response = this.handlePayload("BACK")
+            return response;
         }
 
         if (this.webhookEvent.message.quick_reply) {
             response = this.handlePayload(receivedMessage.quick_reply.payload)
+            return response;
         }
 
         if (this.webhookEvent.message.reply_to.story) {
             response = reactions[Math.floor(Math.random() * (17))];
             console.log(response)
+            return response;
         }
 
         return response;
