@@ -91,9 +91,11 @@ module.exports = class Receive {
             return response;
         }
 
-        if (this.webhookEvent.message.reply_to.story !== undefined) {
-            response = reactions[Math.floor(Math.random() * (17))];
-            console.log(response)
+        if (this.webhookEvent.message.reply_to) {
+            if (this.webhookEvent.message.reply_to.hasOwnProperty('story')) {
+                response = reactions[Math.floor(Math.random() * (17))];
+                console.log(response)
+            }
             return response;
         }
 
