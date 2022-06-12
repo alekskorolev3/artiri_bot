@@ -91,16 +91,16 @@ module.exports = class Receive {
             return response;
         }
 
-        if (this.webhookEvent.message.reply_to) {
-
-            console.log(JSON.stringify(this.webhookEvent.message))
-
-            if (this.webhookEvent.message.reply_to.hasOwnProperty('story')) {
-                response = reactions[Math.floor(Math.random() * (17))];
-                console.log(response)
-            }
-            return response;
-        }
+        // if (this.webhookEvent.message.reply_to) {
+        //
+        //     console.log(JSON.stringify(this.webhookEvent.message))
+        //
+        //     if (this.webhookEvent.message.reply_to.hasOwnProperty('story')) {
+        //         response = reactions[Math.floor(Math.random() * (17))];
+        //         console.log(response)
+        //     }
+        //     return response;
+        // }
 
         return response;
     }
